@@ -1,7 +1,7 @@
 function Item ({item, clickHandler}) {
     return (
         <li className='item' onClick={clickHandler}>
-            <img width={50} src={item.img} />
+            <img width={50} src={item.img} alt={item.name} />
             <section>
                 <div>{item.name}</div>
                 <div>{item.price}원</div>
@@ -10,4 +10,4 @@ function Item ({item, clickHandler}) {
     )
 }
 
-export default Item
+export default Item;

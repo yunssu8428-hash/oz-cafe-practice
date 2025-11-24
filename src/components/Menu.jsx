@@ -1,18 +1,17 @@
 import { useState } from "react";
 import Item from "./Item";
 import OrderModal from "./OrderModal";
+import { useMenu } from "../context/menuContext";
 
-function Menu({ menu, cart, setCart }) {
+function Menu() {
+  const {menu} = useMenu ();
   const [modalOn, setModalOn] = useState(false);
   const [modalMenu, setModalMenu] = useState(null);
-  if (!menu)
-    return (
-      <div style={{ textAlign: "center", margin: "80px" }}>
-        메뉴 정보가 없어요!
-      </div>
-    );
+
+if (!menu) return <div style={{textAlign:'center'}}>메뉴 정보가 없어요!</div>;
 
   const categorys = Object.keys(menu);
+  
   return (
     <>
       {categorys.map((category) => {
@@ -21,8 +20,7 @@ function Menu({ menu, cart, setCart }) {
             <h2>{category}</h2>
             <ul className="menu">
               {menu[category].map((item) => (
-                <Item
-                  key={item.name}
+                <Item key={item.name}
                   item={item}
                   clickHandler={() => {
                     setModalMenu(item);
@@ -34,14 +32,9 @@ function Menu({ menu, cart, setCart }) {
           </section>
         );
       })}
-      {modalOn ? (
-        <OrderModal
-          modalMenu={modalMenu}
-          setModalOn={setModalOn}
-          cart={cart}
-          setCart={setCart}
-        />
-      ) : null}
+      {modalOn && (
+        <OrderModal modalMenu={modalMenu} setModalOn={setModalOn} />
+      )}
     </>
   );
 }
